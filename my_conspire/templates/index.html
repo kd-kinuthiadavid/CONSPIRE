@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+{% load static %}
+{% block content %}
+{{ block.super}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div>
+                    <a href="{% url 'new-feed' %}"><button type="button" class="btn btn-outline-primary btn-sm">Compose</button></a>
+                </div>
+            {% for feed in all_feed %}
+                <div class="card">
+                  <div class="card-header">
+                      <a href="{% url 'all_profiles' profile_id=feed.profile.user.id %}"><small>{{ feed.profile.user.username }}</small></a>
+                  </div>
+                  <div class="card-body">
+                    <small class="card-text">{{ feed.content}}</small>
+                  </div>
+                </div>
+            {% endfor %}
+            </div>
+            <div class="col-md-3"></div>
+
+        </div>
+    </div>
+{% endblock %}
