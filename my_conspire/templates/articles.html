@@ -1,0 +1,28 @@
+{%extends 'base.html'%}
+{% load static %}
+{% block content %}
+{{ block.super}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div>
+                    <a href="{% url 'new-article' %}"><button type="button" class="btn btn-outline-primary btn-sm">Add An Article</button></a>
+                </div>
+            {% for article in articles %}
+                <div class="card">
+                  <div class="card-header">
+                      <img class="article_profile" src="{{ article.profile.profile_photo.url }}" alt="pic">
+                      <a href="{% url 'all_profiles' profile_id=article.profile.user.id %}"><small>{{ article.profile.user.username }}</small></a>
+                  </div>
+                  <div class="card-body">
+                      <a href="{% url 'single_article' id=article.id %}"><h5 class="card-title">{{ article.title}}</h5></a>
+                  </div>
+                </div>
+            {% endfor %}
+            </div>
+            <div class="col-md-3"></div>
+
+        </div>
+    </div>
+{% endblock %}
