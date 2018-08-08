@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+           <div class="card">
+                <img class="img-responsive" src="{{profile.profile_photo.url}}" alt="image">
+                <div class="card-body">
+                    <small class="card_text small-name"><strong>Name:</strong> {{profile.name}}</small>
+                    <br>
+                    <small class="card_text small-description"><strong>Status:</strong> {{profile.status}}</small>
+                    <br>
+                    <small class="card_text small-location"><strong>Email:</strong> {{ profile.email }}</small>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+
+
+
+</div>
+{% endblock %}
