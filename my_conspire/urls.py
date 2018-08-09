@@ -14,6 +14,11 @@ urlpatterns=[
         url(r'^all_articles/', views.all_articles, name='all-articles'),
         url(r'^new/article', views.new_article, name='new-article'),
         url(r'^single_article/(?P<id>\d+)', views.single_article, name='single_article'),
+        url(r'^questions', views.Questions, name='questions'),
+        url(r'^new/question', views.new_question, name='new-question'),
+        url(r'^new/answer', views.new_answer, name='new-answer'),
+        url(r'^single_question/(?P<id>\d+)', views.single_question, name='single_question'),
+        url(r'^answer_for_specific_question/(?P<question_id>\d+)', views.answer_for_specific_question, name='answer_for_specific_question'),
 
 ]
 if settings.DEBUG:
