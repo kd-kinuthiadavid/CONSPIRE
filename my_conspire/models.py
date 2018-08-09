@@ -13,32 +13,31 @@ class Profile(models.Model):
         return self.user.username
 
 
-class Comment(models.Model):
-    content = models.TextField(max_length=100, blank=True, null=True)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='commented_by')
 
-    def __str__(self):
-        return self.content
 
 
 class Article(models.Model):
     article_photo = models.ImageField(upload_to='articles/')
     title = models.CharField(max_length=100, blank=True, null=True)
+    description = models.TextField(max_length=200, blank=True, null=True)
     content = models.TextField(max_length=600, blank=True, null=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='author')
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True)
 
 
     def __str__(self):
         return self.title
 
-
-
-
+class Comment(models.Model):
+    content = models.TextField(max_length=100, blank=True, null=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='commented_by')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True, related_name='commented_for')
 
 
     def __str__(self):
-        return self.title
+        return self.content
+
+
+
 
 
 class Question(models.Model):
@@ -64,7 +63,15 @@ class Answer(models.Model):
 class Feed(models.Model):
     content = models.TextField(max_length=100, blank=True, null=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='posted_by')
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True)
+
+
+    def __str__(self):
+        return self.content
+
+
+class FeedComment(models.Model):
+    content = models.TextField(max_length=100, blank=True, null=True)
+    feed = models.ForeignKey(Feed, on_delete=models.CASCADE, null=True)
 
 
     def __str__(self):
