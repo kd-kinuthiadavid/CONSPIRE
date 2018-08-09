@@ -16,7 +16,14 @@
                       <a href="{% url 'all_profiles' profile_id=article.profile.user.id %}"><small>{{ article.profile.user.username }}</small></a>
                   </div>
                   <div class="card-body">
-                      <a href="{% url 'single_article' id=article.id %}"><h5 class="card-title">{{ article.title}}</h5></a>
+                      <h5 class="card-title">{{ article.title}}</h5>
+                      <br>
+                      <small><strong>{{ article.description }}</strong></small>
+                      <br>
+                      <a href="{% url 'single_article' id=article.id %}"><small>Read more ...</small></a>
+
+
+
                   </div>
                 </div>
             {% endfor %}
