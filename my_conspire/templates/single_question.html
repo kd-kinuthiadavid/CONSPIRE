@@ -1,0 +1,39 @@
+{%extends 'base.html'%}
+{% load static %}
+{% block content %}
+{{ block.super}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+
+                <div class="card">
+                  <div class="card-header">
+                      <h4>{{ question.title }}</h4>
+                  </div>
+                  <div class="card-body">
+                      <img class="question_profile" src="{{ question.profile.profile_photo.url }}" alt="picture">
+                      <a href="{% url 'all_profiles' profile_id=question.profile.user.id %}"><small>{{ question.profile.user.username }}</small></a>
+                      <br>
+                      <br>
+                    <small class="card-text">{{ question.content }}</small>
+                      <br>
+                      <br>
+
+                  </div>
+                </div>
+
+
+                <small>Answers:</small>
+                <br>
+                <br>
+                {% for answer in answers %}
+                <small>{{ answers.content }}</small>
+                {% endfor %}
+
+            </div>
+            <div class="col-md-3"></div>
+
+        </div>
+    </div>
+{% endblock %}
