@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
-from my_conspire.forms import NewProfileForm, NewFeedForm, NewArticleForm
-from my_conspire.models import Feed, Profile, Article
+from my_conspire.forms import NewProfileForm, NewFeedForm, NewArticleForm, NewQuestionForm, NewAnswerForm
+from my_conspire.models import Feed, Profile, Article, Question, Answer
 
 
 def welcome(request):
@@ -72,3 +72,43 @@ def new_article(request):
 def single_article(request, id):
     article = Article.objects.get(id=id)
     return render(request, 'single_article.html', locals())
+
+def Questions(request):
+    questions = Question.objects.all()
+    return render(request, 'questions.html', locals())
+
+def new_question(request):
+    current_user = request.user
+
+    if request.method == 'POST':
+        form = NewQuestionForm(request.POST, request.FILES)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.user = current_user
+            question.save()
+            return redirect('questions')
+    else:
+        form = NewQuestionForm()
+    return render(request, 'new_question.html', {"form": form})
+
+def single_question(request, id):
+    question = Question.objects.get(id=id)
+    return render(request, 'single_question.html', locals())
+
+def new_answer(request):
+    current_user = request.user
+
+    if request.method == 'POST':
+        form = NewAnswerForm(request.POST, request.FILES)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.user = current_user
+            answer.save()
+            return redirect('questions')
+    else:
+        form = NewAnswerForm()
+    return render(request, 'new_answer.html', {"form": form})
+
+def answer_for_specific_question(request, question_id):
+    answers = Answer.objects.filter(question_id=question_id)
+    return render(request, 'answers.html', locals())
