@@ -1,0 +1,45 @@
+{%extends 'base.html'%}
+{% load static %}
+{% block content %}
+{{ block.super}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <br>
+                <div class="Q_&_A">
+                   <div>
+                        <h2 class="what_is_it">Questions</h2>
+                    </div>
+                    <div>
+                        <a href="{% url 'new-question' %}"><button type="button" class="btn btn-outline-primary btn-sm left_button">Ask A Question</button></a>
+                    </div>
+                </div>
+                <hr class="horizontal">
+            {% for question in questions %}
+
+                <div class="card">
+                  <div class="card-header">
+                      <h4>{{ question.title }}</h4>
+                  </div>
+                  <div class="card-body">
+                      <img class="question_profile" src="{{ question.profile.profile_photo.url }}" alt="picture">
+                      <a href="{% url 'all_profiles' profile_id=question.profile.user.id %}"><small>{{ question.profile.user.username }}</small></a>
+                      <br>
+                      <br>
+                    <small class="card-text">{{ question.content }}</small>
+                      <br>
+                      <br>
+                      <a href="{% url 'new-answer' %}"><button type="button" class="btn btn-outline-primary btn-sm">Answer This Question</button></a>
+                        <a href="{% url 'answer_for_specific_question' question_id=question.id %}"><button type="button" class="btn btn-outline-primary btn-sm">View Answers</button></a>
+
+                  </div>
+                </div>
+
+            {% endfor %}
+            </div>
+            <div class="col-md-2"></div>
+
+        </div>
+    </div>
+{% endblock %}
