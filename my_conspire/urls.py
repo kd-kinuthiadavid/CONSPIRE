@@ -19,6 +19,10 @@ urlpatterns=[
         url(r'^new/answer', views.new_answer, name='new-answer'),
         url(r'^single_question/(?P<id>\d+)', views.single_question, name='single_question'),
         url(r'^answer_for_specific_question/(?P<question_id>\d+)', views.answer_for_specific_question, name='answer_for_specific_question'),
+        url(r'^new/comment', views.new_comment, name='new-comment'),
+        url(r'^comment_for_specific_articles/(?P<article_id>\d+)', views.comment_for_specific_articles, name='comment_for_specific_articles'),
+        url(r'^feed-comment/', views.new_feed_comment, name='new_feed_comment'),
+        url(r'^comment_for_specific_feed/(?P<feed_id>\d+)', views.comment_for_specific_feed, name='comment_for_specific_feed'),
 
 ]
 if settings.DEBUG:
