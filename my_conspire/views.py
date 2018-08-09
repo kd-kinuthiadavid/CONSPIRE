@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 
-from my_conspire.forms import NewProfileForm, NewFeedForm, NewArticleForm, NewQuestionForm, NewAnswerForm
-from my_conspire.models import Feed, Profile, Article, Question, Answer
+from my_conspire.forms import NewProfileForm, NewFeedForm, NewArticleForm, NewQuestionForm, NewAnswerForm, \
+    NewCommentForm, NewFeedCommentForm
+from my_conspire.models import Feed, Profile, Article, Question, Answer, Comment, FeedComment
 
 
 def welcome(request):
@@ -44,6 +45,26 @@ def new_feed(request):
     else:
         form = NewFeedForm()
     return render(request, 'new_feed.html', {"form": form})
+
+
+
+def new_feed_comment(request):
+    current_user = request.user
+
+    if request.method == 'POST':
+        form = NewFeedCommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            feed_comment = form.save(commit=False)
+            feed_comment.user = current_user
+            feed_comment.save()
+            return redirect('feed')
+    else:
+        form = NewFeedCommentForm()
+    return render(request, 'new_feed_comment.html', {"form": form})
+
+def comment_for_specific_feed(request, feed_id):
+    feed_comment = FeedComment.objects.filter(feed_id=feed_id)
+    return render(request, 'feed_comments.html', locals())
 
 
 def current_user_profile(request, profile_id):
@@ -112,3 +133,22 @@ def new_answer(request):
 def answer_for_specific_question(request, question_id):
     answers = Answer.objects.filter(question_id=question_id)
     return render(request, 'answers.html', locals())
+
+
+def new_comment(request):
+    current_user = request.user
+
+    if request.method == 'POST':
+        form = NewCommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = current_user
+            comment.save()
+            return redirect('all-articles')
+    else:
+        form = NewCommentForm()
+    return render(request, 'new_comment.html', {"form": form})
+
+def comment_for_specific_articles(request, article_id):
+    comments = Comment.objects.filter(article_id=article_id)
+    return render(request, 'comment.html', locals())
