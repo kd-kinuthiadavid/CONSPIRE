@@ -19,6 +19,10 @@
                   <h5 class="card-title">{{ article.title}}</h5>
                     <small class="card-text">{{ article.content}}</small>
                   </div>
+                    <div>
+                    <a href="{% url 'new-comment' %}"><button type="button" class="btn btn-outline-primary btn-sm">Comment</button></a>
+                    <a href="{% url 'comment_for_specific_articles' article_id=article.id %}"><button type="button" class="btn btn-outline-primary btn-sm">View Comments</button></a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-3"></div>
