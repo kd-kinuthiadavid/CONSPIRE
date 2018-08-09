@@ -16,6 +16,12 @@
                   </div>
                   <div class="card-body">
                     <small class="card-text">{{ feed.content}}</small>
+                      <br>
+                      <br>
+                      <div>
+                        <a href="{% url 'new_feed_comment' %}"><button type="button" class="btn btn-outline-primary btn-sm">Comment</button></a>
+                        <a href="{% url 'comment_for_specific_feed' feed_id=feed.id %}"><button type="button" class="btn btn-outline-primary btn-sm">View Comments</button></a>
+                    </div>
                   </div>
                 </div>
             {% endfor %}
