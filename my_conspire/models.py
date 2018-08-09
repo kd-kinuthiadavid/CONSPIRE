@@ -33,28 +33,32 @@ class Article(models.Model):
         return self.title
 
 
-class Question(models.Model):
-    title = models.CharField(max_length=100, blank=True, null=True)
-    content = models.TextField(max_length=100, blank=True, null=True)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='asked_by')
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True)
+
+
 
 
     def __str__(self):
         return self.title
 
+
+class Question(models.Model):
+    title = models.CharField(max_length=100, blank=True, null=True)
+    content = models.TextField(max_length=100, blank=True, null=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='asked_by')
+
+
+    def __str__(self):
+        return self.title
 
 class Answer(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     content = models.TextField(max_length=100, blank=True, null=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='answered_by')
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True, related_name='answer_for')
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
 
 
 
-    def __str__(self):
-        return self.title
 
 
 class Feed(models.Model):
