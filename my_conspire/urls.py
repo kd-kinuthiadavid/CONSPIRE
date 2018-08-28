@@ -23,6 +23,7 @@ urlpatterns=[
         url(r'^comment_for_specific_articles/(?P<article_id>\d+)', views.comment_for_specific_articles, name='comment_for_specific_articles'),
         url(r'^feed-comment/', views.new_feed_comment, name='new_feed_comment'),
         url(r'^comment_for_specific_feed/(?P<feed_id>\d+)', views.comment_for_specific_feed, name='comment_for_specific_feed'),
+        url(r'^search/', views.search_results, name='search_results'),
 
 ]
 if settings.DEBUG:

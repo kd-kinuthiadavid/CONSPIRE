@@ -152,3 +152,17 @@ def new_comment(request):
 def comment_for_specific_articles(request, article_id):
     comments = Comment.objects.filter(article_id=article_id)
     return render(request, 'comment.html', locals())
+
+
+
+def search_results(request):
+    if 'conspire' in request.GET and request.GET["conspire"]:
+        search_term = request.GET.get("conspire")
+        searched_articles= Article.search_article(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html', {"message": message, "images": searched_articles})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html', {"message": message})

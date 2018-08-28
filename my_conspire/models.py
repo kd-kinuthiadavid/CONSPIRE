@@ -27,6 +27,12 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+    @classmethod
+    def search_article(cls, search_term):
+        articles = cls.objects.filter(title__icontains=search_term)
+        return articles
+
+
 class Comment(models.Model):
     content = models.TextField(max_length=100, blank=True, null=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='commented_by')
